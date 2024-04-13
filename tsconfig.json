@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "app/UserCrud/test.jsx"  ],
+, "app/UserCrud/test.jsx", "app/History/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
