@@ -44,6 +44,8 @@ const SupportActionLogList = () => {
           <Text>{`User ID: ${log.userId}`}</Text>
           <Text>{`Action: ${log.action}`}</Text>
           <Text>{`Action: ${log.shop_id}`}</Text>
+          <Text>{`Action: ${log.createdAt}`}</Text>
+
           <Text>{`Created At: ${new Date(
             log.createdAt
           ).toLocaleString()}`}</Text>
