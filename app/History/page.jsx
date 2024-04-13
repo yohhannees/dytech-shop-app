@@ -43,7 +43,7 @@ const SupportActionLogList = () => {
         <div key={log.id}>
           <Text>{`User ID: ${log.userId}`}</Text>
           <Text>{`Action: ${log.action}`}</Text>
-          <Text>{`Action: ${log.shop_id}`}</Text>
+          <Text>{`Shop-Id(manipulated): ${log.shop_id}`}</Text>
           <Text>{`Action: ${log.createdAt}`}</Text>
 
           <Text>{`Created At: ${new Date(
