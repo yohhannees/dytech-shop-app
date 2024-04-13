@@ -20,7 +20,7 @@ const CreateUserComponent = () => {
     e.preventDefault();
     try {
         console.log('formData:', formData);
-      const response = await axios.post('/api/support', formData);
+      const response = await axios.post('https://shop-d2bg.onrender.com/users/support', formData);
       console.log('User created:', response.data);
       setNotification({ type: 'success', message: 'User created successfully' });
       // Clear form after successful submission
