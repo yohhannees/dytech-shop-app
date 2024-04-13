@@ -7,9 +7,12 @@ import {
   Group,
   Notification,
   Container,
+  LoadingOverlay,
+  Box,
 } from "@mantine/core";
 
-const CreateUserComponent = () => {
+
+const CreateShop = () => {
   const [formData, setFormData] = useState({
     ownerName: "",
     shopName: "",
@@ -25,6 +28,7 @@ const CreateUserComponent = () => {
   const [shops, setShops] = useState([]);
   const [editingShopId, setEditingShopId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(false); // State for loading overlay
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -36,9 +40,12 @@ const CreateUserComponent = () => {
 
   const fetchShops = async () => {
     try {
+      setLoading(true); // Show loading overlay
       const response = await axios.get("https://shop-d2bg.onrender.com/shops");
       setShops(response.data);
+      setLoading(false); // Hide loading overlay
     } catch (error) {
+      setLoading(false); // Hide loading overlay in case of error
       console.error("Error fetching Shops:", error);
     }
   };
@@ -51,6 +58,7 @@ const CreateUserComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true); // Show loading overlay
       const response = await axios.post(
         `https://shop-d2bg.onrender.com/shops/${userId}`,
         formData
@@ -74,11 +82,14 @@ const CreateUserComponent = () => {
     } catch (error) {
       console.error("Error creating Shop:", error);
       setNotification({ type: "error", message: "Failed to create Shop" });
+    } finally {
+      setLoading(false); // Hide loading overlay after request completes
     }
   };
 
   const handleDeleteShop = async (shopId) => {
     try {
+      setLoading(true); // Show loading overlay
       await axios.delete(
         `https://shop-d2bg.onrender.com/shops/${shopId}/${userId}`
       );
@@ -90,6 +101,8 @@ const CreateUserComponent = () => {
     } catch (error) {
       console.error("Error deleting Shop:", error);
       setNotification({ type: "error", message: "Failed to delete Shop" });
+    } finally {
+      setLoading(false); // Hide loading overlay after request completes
     }
   };
 
@@ -111,6 +124,7 @@ const CreateUserComponent = () => {
   const handleUpdateShop = async (e) => {
     e.preventDefault(); // Prevent page reload
     try {
+      setLoading(true); // Show loading overlay
       const response = await axios.put(
         `https://shop-d2bg.onrender.com/shops/${editingShopId}/${userId}`,
         formData
@@ -137,12 +151,14 @@ const CreateUserComponent = () => {
     } catch (error) {
       console.error("Error updating shop:", error);
       setNotification({ type: "error", message: "Failed to update shop" });
+    } finally {
+      setLoading(false); // Hide loading overlay after request completes
     }
   };
-
   return (
     <Container>
       <h1>Shop Form</h1>
+      <LoadingOverlay visible={loading} zIndex={1000} />
       {notification && (
         <Notification
           title={notification.type === "success" ? "Success" : "Error"}
@@ -327,4 +343,4 @@ const CreateUserComponent = () => {
   );
 };
 
-export default CreateUserComponent;
+export default CreateShop;

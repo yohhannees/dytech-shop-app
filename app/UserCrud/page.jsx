@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -7,6 +7,7 @@ import {
   Group,
   Notification,
   MultiSelect,
+  LoadingOverlay,
 } from "@mantine/core";
 
 const CreateUserComponent = () => {
@@ -20,6 +21,7 @@ const CreateUserComponent = () => {
   const [notification, setNotification] = useState(null);
   const [users, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -45,6 +47,7 @@ const CreateUserComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://shop-d2bg.onrender.com/users/support",
@@ -54,15 +57,24 @@ const CreateUserComponent = () => {
         type: "success",
         message: "User created successfully",
       });
-      setFormData({ username: "", email: "", permissions: [], role: "", password: "" });
+      setFormData({
+        username: "",
+        email: "",
+        permissions: [],
+        role: "",
+        password: "",
+      });
       fetchUsers();
     } catch (error) {
       console.error("Error creating user:", error);
       setNotification({ type: "error", message: "Failed to create user" });
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeleteUser = async (userId) => {
+    setLoading(true);
     try {
       await axios.delete(
         `https://shop-d2bg.onrender.com/users/support/${userId}`
@@ -75,6 +87,8 @@ const CreateUserComponent = () => {
     } catch (error) {
       console.error("Error deleting user:", error);
       setNotification({ type: "error", message: "Failed to delete user" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +104,8 @@ const CreateUserComponent = () => {
   };
 
   const handleUpdateUser = async (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.patch(
         `https://shop-d2bg.onrender.com/users/${editingUserId}`,
@@ -101,12 +116,20 @@ const CreateUserComponent = () => {
         type: "success",
         message: "User updated successfully",
       });
-      setFormData({ username: "", email: "", permissions: [], role: "", password: "" });
+      setFormData({
+        username: "",
+        email: "",
+        permissions: [],
+        role: "",
+        password: "",
+      });
       setEditingUserId(null);
       fetchUsers();
     } catch (error) {
       console.error("Error updating user:", error);
       setNotification({ type: "error", message: "Failed to update user" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,6 +145,7 @@ const CreateUserComponent = () => {
           {notification.message}
         </Notification>
       )}
+      <LoadingOverlay visible={loading} zIndex={1000} />
       {editingUserId ? (
         <div>
           <form onSubmit={handleUpdateUser}>
@@ -226,7 +250,7 @@ const CreateUserComponent = () => {
               <div>Email: {user.email}</div>
               <div>Role: {user.role}</div>
               <div>Password: {user.password}</div>
-              <div>Permission:{user.permissions.join(", ")}</div>
+              <div>Permission: {user.permissions.join(", ")}</div>
               <Button onClick={() => handleEditUser(user)}>Edit</Button>
               <Button onClick={() => handleDeleteUser(user.id)}>Delete</Button>
             </li>

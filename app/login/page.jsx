@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState } from "react";
 import { Button, TextInput, Notification } from "@mantine/core";
 import axios from "axios";
@@ -18,8 +18,14 @@ const Login = () => {
         "https://shop-d2bg.onrender.com/auth/login",
         { username, password }
       );
+      if (username === "ADMIN" && password === "7vzwj36q0ud") {
+        // Redirect to '/' for admin
+        window.location.href = "/admin";
+      } else {
+        // Redirect to '/user' for normal users
+        window.location.href = "/support";
+      }
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      window.location.href = "/";
     } catch (error) {
       setError("Invalid credentials");
     } finally {
