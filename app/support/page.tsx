@@ -1,12 +1,11 @@
-import React from 'react';
-import CreateShop from '../ShopCrud/page';
+import React from "react";
+import CreateShop from "../shop-manage/page";
 
-const  Support = () => {
+const Support = () => {
   return (
     <div>
       <h1>Support</h1>
-      <CreateShop/>
-
+      <CreateShop />
     </div>
   );
 };
