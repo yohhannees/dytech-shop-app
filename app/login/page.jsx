@@ -19,11 +19,9 @@ const Login = () => {
         { username, password }
       );
       if (username === "ADMIN" && password === "7vzwj36q0ud") {
-        // Redirect to '/' for admin
         window.location.href = "/admin";
       } else {
-        // Redirect to '/user' for normal users
-        window.location.href = "/support";
+        window.location.href = "/shop-manage";
       }
       localStorage.setItem("user", JSON.stringify(response.data.user));
     } catch (error) {
@@ -34,8 +32,16 @@ const Login = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", paddingTop: 100 }}>
-      <h1>Login</h1>
+    <div
+      style={{
+        maxWidth: 400,
+        margin: "auto",
+        paddingTop: 80,
+        paddingLeft: 30,
+        paddingRight: 30,
+      }}
+    >
+      <h1>Shop Data Login</h1>
       {error && (
         <Notification color="red" title="Error" onClose={() => setError("")}>
           {error}
@@ -54,8 +60,16 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          style={{
+            marginTop: "3vh",
+          }}
         />
-        <Group position="relative">
+        <Group
+          position="relative"
+          style={{
+            marginTop: "3vh",
+          }}
+        >
           <Button type="submit" disabled={loading}>
             {loading ? "Loading..." : "Login"}
           </Button>

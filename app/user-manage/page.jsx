@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
@@ -134,8 +134,13 @@ const CreateUserComponent = () => {
   };
 
   return (
-    <div>
-      <div>Support Users Form</div>
+    <div
+      style={{
+        paddingLeft: 100,
+        paddingRight: 100,
+      }}
+    >
+      <h1>Support Users Form</h1>
       {notification && (
         <Notification
           title={notification.type === "success" ? "Success" : "Error"}

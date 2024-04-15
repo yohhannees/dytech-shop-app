@@ -1,14 +1,14 @@
 import "@mantine/core/styles.css";
+import "../styles/globals.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
 
-export const metadata = {
-  title: "Form App",
-  description: "I am using Mantine with Next.js!",
-};
-
-export default function RootLayout({ children }: { children: any }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
@@ -17,6 +17,10 @@ export default function RootLayout({ children }: { children: any }) {
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+          rel="stylesheet"
         />
       </head>
       <body>

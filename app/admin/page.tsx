@@ -1,14 +1,13 @@
-import React from 'react';
-import CreateUserComponent from '../UserCrud/page';
-import SupportActionLogList from '../History/page';
+import React from "react";
+import CreateUserComponent from "../user-manage/page";
+import SupportActionLogList from "../History/page";
 
-const  Admin = () => {
+const Admin = () => {
   return (
     <div>
       <h1>Admin</h1>
-      <CreateUserComponent/>
-      <SupportActionLogList/>
-
+      <CreateUserComponent />
+      <SupportActionLogList />
     </div>
   );
 };
